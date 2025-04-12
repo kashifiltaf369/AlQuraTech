@@ -1,0 +1,134 @@
+{
+    "id": "web_dev_roadmap",
+    "title": "Web Development Roadmap",
+    "description": "Comprehensive path to becoming a web developer",
+    "required_skills": ["HTML", "CSS", "JavaScript", "Git"],
+    "keywords": ["web", "frontend", "backend", "fullstack", "development"],
+    "estimated_duration": "6-12 months",
+    "milestones": [
+        {
+            "id": "web_fundamentals",
+            "title": "Web Fundamentals",
+            "description": "Learn the basics of web development",
+            "estimated_hours": 40,
+            "complexity": 1,
+            "status": "pending",
+            "subtasks": [
+                {
+                    "id": "html_basics",
+                    "title": "HTML Basics",
+                    "description": "Learn HTML structure and elements",
+                    "resources": [
+                        {
+                            "type": "course",
+                            "title": "HTML Fundamentals",
+                            "url": "https://www.w3schools.com/html/",
+                            "cost": "free"
+                        }
+                    ]
+                },
+                {
+                    "id": "css_basics",
+                    "title": "CSS Basics",
+                    "description": "Learn CSS styling and layout",
+                    "resources": [
+                        {
+                            "type": "course",
+                            "title": "CSS Fundamentals",
+                            "url": "https://www.w3schools.com/css/",
+                            "cost": "free"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "javascript_fundamentals",
+            "title": "JavaScript Fundamentals",
+            "description": "Master JavaScript programming",
+            "estimated_hours": 60,
+            "complexity": 2,
+            "status": "pending",
+            "subtasks": [
+                {
+                    "id": "js_basics",
+                    "title": "JavaScript Basics",
+                    "description": "Learn JavaScript syntax and concepts",
+                    "resources": [
+                        {
+                            "type": "course",
+                            "title": "JavaScript Fundamentals",
+                            "url": "https://www.w3schools.com/js/",
+                            "cost": "free"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "frontend_frameworks",
+            "title": "Frontend Frameworks",
+            "description": "Learn modern frontend frameworks",
+            "estimated_hours": 80,
+            "complexity": 3,
+            "status": "pending",
+            "subtasks": [
+                {
+                    "id": "react_basics",
+                    "title": "React Basics",
+                    "description": "Learn React.js fundamentals",
+                    "resources": [
+                        {
+                            "type": "course",
+                            "title": "React Fundamentals",
+                            "url": "https://reactjs.org/docs/getting-started.html",
+                            "cost": "free"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "backend_development",
+            "title": "Backend Development",
+            "description": "Learn server-side programming",
+            "estimated_hours": 100,
+            "complexity": 4,
+            "status": "pending",
+            "subtasks": [
+                {
+                    "id": "node_basics",
+                    "title": "Node.js Basics",
+                    "description": "Learn Node.js and Express",
+                    "resources": [
+                        {
+                            "type": "course",
+                            "title": "Node.js Fundamentals",
+                            "url": "https://nodejs.org/docs/",
+                            "cost": "free"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "recommended_resources": {
+        "free": [
+            {
+                "type": "documentation",
+                "title": "MDN Web Docs",
+                "url": "https://developer.mozilla.org/",
+                "description": "Comprehensive web development documentation"
+            }
+        ],
+        "paid": [
+            {
+                "type": "course",
+                "title": "Complete Web Development Bootcamp",
+                "url": "https://www.udemy.com/course/the-complete-web-development-bootcamp/",
+                "cost": "paid",
+                "description": "Comprehensive web development course"
+            }
+        ]
+    }
+} 

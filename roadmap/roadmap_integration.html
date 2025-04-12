@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlQuraTech - Learning Roadmap</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .header-gradient {
+            background: linear-gradient(135deg, rgba(17, 24, 39, 0.95), rgba(31, 41, 55, 0.95));
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .nav-container {
+            background: rgba(17, 24, 39, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            position: fixed;
+            width: 100%;
+            z-index: 50;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-container.scrolled {
+            background: rgba(17, 24, 39, 0.95);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-link {
+            position: relative;
+            color: #9CA3AF;
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .nav-link:hover::before {
+            opacity: 1;
+        }
+        
+        .nav-link.active {
+            color: #60A5FA;
+            background: rgba(59, 130, 246, 0.1);
+        }
+        
+        .roadmap-step {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .roadmap-step::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #4B5563;
+        }
+        
+        .roadmap-step::after {
+            content: '';
+            position: absolute;
+            left: -4px;
+            top: 0;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #60A5FA;
+        }
+        
+        .roadmap-step.completed::after {
+            background: #10B981;
+        }
+        
+        .roadmap-step.in-progress::after {
+            background: #F59E0B;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+    <!-- Navigation -->
+    <nav class="nav-container">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <a href="/" class="text-2xl font-bold text-white">AlQuraTech</a>
+                <div class="flex items-center space-x-4">
+                    <a href="/" class="nav-link">
+                        <i class="fas fa-home"></i>
+                        Home
+                    </a>
+                    <a href="/roadmap" class="nav-link active">
+                        <i class="fas fa-map"></i>
+                        Roadmap
+                    </a>
+                    <a href="/courses" class="nav-link">
+                        <i class="fas fa-graduation-cap"></i>
+                        Courses
+                    </a>
+                    <a href="/community" class="nav-link">
+                        <i class="fas fa-users"></i>
+                        Community
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 pt-24 pb-12">
+        <!-- Roadmap Setup Form -->
+        <div id="setupForm" class="max-w-2xl mx-auto bg-gray-800 rounded-lg p-8 mb-8">
+            <h2 class="text-3xl font-bold mb-6">Let's Create Your Roadmap</h2>
+            <form id="roadmapForm" class="space-y-6">
+                <div>
+                    <label for="goal" class="block text-sm font-medium text-gray-300 mb-2">What is your goal?</label>
+                    <input type="text" id="goal" name="goal" required
+                           class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                           placeholder="e.g., Become a Full Stack Developer">
+                </div>
+                
+                <div>
+                    <label for="skillLevel" class="block text-sm font-medium text-gray-300 mb-2">Current skill level</label>
+                    <select id="skillLevel" name="skillLevel" required
+                            class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <option value="beginner">Beginner</option>
+                        <option value="intermediate">Intermediate</option>
+                        <option value="advanced">Advanced</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label for="skills" class="block text-sm font-medium text-gray-300 mb-2">Your current skills</label>
+                    <div id="skillTags" class="flex flex-wrap gap-2 mb-2"></div>
+                    <input type="text" id="skillInput" name="skillInput"
+                           class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                           placeholder="Type a skill and press Enter">
+                </div>
+                
+                <div>
+                    <label for="interests" class="block text-sm font-medium text-gray-300 mb-2">Your interests</label>
+                    <div id="interestTags" class="flex flex-wrap gap-2 mb-2"></div>
+                    <input type="text" id="interestInput" name="interestInput"
+                           class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                           placeholder="Type an interest and press Enter">
+                </div>
+                
+                <button type="submit"
+                        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200">
+                    Generate Roadmap
+                </button>
+            </form>
+        </div>
+
+        <!-- Roadmap Display -->
+        <div id="roadmapContainer" class="max-w-4xl mx-auto"></div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="roadmap/roadmap_integration.js"></script>
+    <script>
+        // Initialize the roadmap integration
+        const roadmapIntegration = new RoadmapIntegration();
+        
+        // Handle form submission
+        document.getElementById('roadmapForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = {
+                skills: Array.from(document.getElementById('skillTags').children).map(tag => tag.textContent.trim()),
+                interests: Array.from(document.getElementById('interestTags').children).map(tag => tag.textContent.trim()),
+                career_goals: [document.getElementById('goal').value],
+                experience_level: document.getElementById('skillLevel').value,
+                preferred_tech_stack: []
+            };
+            
+            try {
+                const roadmap = await roadmapIntegration.generatePersonalizedRoadmap(formData);
+                updateRoadmapDisplay(roadmap);
+                document.getElementById('setupForm').style.display = 'none';
+            } catch (error) {
+                console.error('Error generating roadmap:', error);
+                alert('Failed to generate roadmap. Please try again.');
+            }
+        });
+        
+        // Handle skill input
+        document.getElementById('skillInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                addTag('skillTags', 'skillInput');
+            }
+        });
+        
+        // Handle interest input
+        document.getElementById('interestInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                addTag('interestTags', 'interestInput');
+            }
+        });
+        
+        function addTag(containerId, inputId) {
+            const container = document.getElementById(containerId);
+            const input = document.getElementById(inputId);
+            const value = input.value.trim();
+            
+            if (value) {
+                const tag = document.createElement('span');
+                tag.className = 'inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-600 text-white';
+                tag.innerHTML = `
+                    ${value}
+                    <button type="button" class="ml-2 text-white hover:text-gray-200" onclick="this.parentElement.remove()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                container.appendChild(tag);
+                input.value = '';
+            }
+        }
+        
+        function updateRoadmapDisplay(roadmap) {
+            const container = document.getElementById('roadmapContainer');
+            container.innerHTML = '';
+            
+            // Add roadmap title and description
+            container.innerHTML += `
+                <div class="mb-8">
+                    <h2 class="text-3xl font-bold mb-4">${roadmap.title}</h2>
+                    <p class="text-gray-400">${roadmap.description}</p>
+                </div>
+            `;
+            
+            // Add milestones
+            roadmap.milestones.forEach((milestone, index) => {
+                const milestoneElement = document.createElement('div');
+                milestoneElement.className = 'roadmap-step';
+                milestoneElement.innerHTML = `
+                    <div class="bg-gray-800 p-6 rounded-lg">
+                        <h3 class="text-2xl font-bold mb-4">${milestone.title}</h3>
+                        <p class="text-gray-400 mb-4">${milestone.description}</p>
+                        
+                        ${milestone.subtasks.length > 0 ? `
+                            <div class="space-y-4">
+                                ${milestone.subtasks.map(subtask => `
+                                    <div class="bg-gray-700 p-4 rounded-lg">
+                                        <h4 class="font-bold mb-2">${subtask.title}</h4>
+                                        <p class="text-gray-400 mb-2">${subtask.description}</p>
+                                        ${subtask.resources.length > 0 ? `
+                                            <div class="mt-2">
+                                                <h5 class="text-sm font-medium text-gray-300 mb-1">Resources:</h5>
+                                                <ul class="list-disc list-inside space-y-1">
+                                                    ${subtask.resources.map(resource => `
+                                                        <li>
+                                                            ${resource.url ? 
+                                                                `<a href="${resource.url}" target="_blank" class="text-blue-400 hover:text-blue-300">${resource.title}</a>` :
+                                                                resource.title
+                                                            }
+                                                            ${resource.description ? `<span class="text-gray-500">${resource.description}</span>` : ''}
+                                                            <span class="inline-block px-2 py-1 text-xs rounded-full ${resource.cost === 'free' ? 'bg-green-500' : 'bg-yellow-500'}">
+                                                                ${resource.cost}
+                                                            </span>
+                                                        </li>
+                                                    `).join('')}
+                                                </ul>
+                                            </div>
+                                        ` : ''}
+                                    </div>
+                                `).join('')}
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+                container.appendChild(milestoneElement);
+            });
+            
+            // Add resources section
+            if (roadmap.resources.length > 0) {
+                container.innerHTML += `
+                    <div class="mt-8">
+                        <h3 class="text-2xl font-bold mb-4">Additional Resources</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            ${roadmap.resources.map(resource => `
+                                <div class="bg-gray-800 p-4 rounded-lg">
+                                    <h4 class="font-bold mb-2">${resource.title}</h4>
+                                    ${resource.description ? `<p class="text-gray-400 mb-2">${resource.description}</p>` : ''}
+                                    ${resource.url ? `<a href="${resource.url}" target="_blank" class="text-blue-400 hover:text-blue-300">Learn More</a>` : ''}
+                                    <span class="inline-block px-2 py-1 text-xs rounded-full ${resource.cost === 'free' ? 'bg-green-500' : 'bg-yellow-500'}">
+                                        ${resource.cost}
+                                    </span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+        }
+        
+        // Handle scroll for navigation
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.nav-container');
+            if (window.scrollY > 0) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html> 
