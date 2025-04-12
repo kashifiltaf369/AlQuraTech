@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Project Manager - SkillCrafters Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-gray-100">
+    <!-- Navigation -->
+    <nav class="bg-indigo-800 text-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/admin/dashboard.html" class="text-2xl font-bold">SkillCrafters Admin</a>
+                    <div class="hidden md:flex items-center space-x-8 ml-10">
+                        <a href="/admin/dashboard.html" class="text-gray-300 hover:text-white">Dashboard</a>
+                        <a href="/admin/ai-project-manager.html" class="text-white">AI Project Manager</a>
+                        <a href="/admin/users.html" class="text-gray-300 hover:text-white">Users</a>
+                        <a href="/admin/analytics.html" class="text-gray-300 hover:text-white">Analytics</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 py-8">
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">AI Project Manager</h1>
+            <div>
+                <button id="createProjectBtn" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg flex items-center">
+                    <i class="fas fa-plus mr-2"></i> New Project
+                </button>
+            </div>
+        </div>
+
+        <!-- Project Overview -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+            <!-- Active Projects Card -->
+            <div class="bg-white rounded-lg shadow-sm p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-xl font-bold text-gray-900">Active Projects</h2>
+                    <span class="text-2xl font-bold text-indigo-600">3</span>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-600">Web App Framework</span>
+                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">75% Complete</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-600">Mobile API Service</span>
+                        <span class="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs rounded-full">42% Complete</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-600">Data Visualization Tool</span>
+                        <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">18% Complete</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contributors Card -->
+            <div class="bg-white rounded-lg shadow-sm p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-xl font-bold text-gray-900">Active Contributors</h2>
+                    <span class="text-2xl font-bold text-indigo-600">47</span>
+                </div>
+                <div class="space-y-2">
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-600">Beginners</span>
+                        <span class="text-indigo-600 font-semibold">23</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-600">Intermediate</span>
+                        <span class="text-indigo-600 font-semibold">18</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-600">Advanced</span>
+                        <span class="text-indigo-600 font-semibold">6</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Code Integration Card -->
+            <div class="bg-white rounded-lg shadow-sm p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-xl font-bold text-gray-900">Code Integration</h2>
+                    <span class="text-2xl font-bold text-indigo-600">89%</span>
+                </div>
+                <div class="space-y-2">
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-600">Accepted Submissions</span>
+                        <span class="text-green-600 font-semibold">132</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-600">Pending Review</span>
+                        <span class="text-yellow-600 font-semibold">28</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-600">Rejected</span>
+                        <span class="text-red-600 font-semibold">17</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Project Tabs -->
+        <div class="bg-white rounded-lg shadow-sm mb-8">
+            <div class="border-b">
+                <div class="flex">
+                    <button class="px-6 py-3 border-b-2 border-indigo-600 text-indigo-600 font-medium">
+                        Current Projects
+                    </button>
+                    <button class="px-6 py-3 text-gray-500 font-medium">
+                        Completed Projects
+                    </button>
+                    <button class="px-6 py-3 text-gray-500 font-medium">
+                        Project Templates
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Project List -->
+            <div class="p-6">
+                <!-- Project 1 -->
+                <div class="border-b pb-6 mb-6">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900">Web App Framework</h3>
+                            <p class="text-gray-600 mt-1">A modular web application framework with component library</p>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-md text-sm">Manage</button>
+                            <button class="bg-green-100 text-green-700 px-3 py-1 rounded-md text-sm">Deploy</button>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
+                        <div>
+                            <h4 class="text-sm font-semibold text-gray-500 mb-2">PROGRESS</h4>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div class="bg-green-600 h-2.5 rounded-full" style="width: 75%"></div>
+                            </div>
+                            <div class="flex justify-between mt-1 text-xs text-gray-500">
+                                <span>Started: Feb 12, 2025</span>
+                                <span>Target: Apr 15, 2025</span>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 class="text-sm font-semibold text-gray-500 mb-2">CONTRIBUTORS</h4>
+                            <div class="flex items-center">
+                                <div class="flex -space-x-2 mr-3">
+                                    <div class="w-7 h-7 rounded-full bg-indigo-300 flex items-center justify-center text-xs text-white">JD</div>
+                                    <div class="w-7 h-7 rounded-full bg-green-300 flex items-center justify-center text-xs text-white">KL</div>
+                                    <div class="w-7 h-7 rounded-full bg-yellow-300 flex items-center justify-center text-xs text-white">MN</div>
+                                    <div class="w-7 h-7 rounded-full bg-blue-300 flex items-center justify-center text-xs text-white">+14</div>
+                                </div>
+                                <span class="text-sm text-gray-600">18 contributors</span>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 class="text-sm font-semibold text-gray-500 mb-2">INTEGRATION STATUS</h4>
+                            <div class="flex items-center space-x-2">
+                                <i class="fas fa-code-branch text-green-500"></i>
+                                <span class="text-sm text-gray-600">Last integration: 2 hours ago</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex space-x-4">
+                        <button class="text-indigo-600 text-sm hover:text-indigo-800 flex items-center">
+                            <i class="fas fa-code-branch mr-1"></i> View Code
+                        </button>
+                        <button class="text-indigo-600 text-sm hover:text-indigo-800 flex items-center">
+                            <i class="fas fa-tasks mr-1"></i> View Tasks
+                        </button>
+                        <button class="text-indigo-600 text-sm hover:text-indigo-800 flex items-center">
+                            <i class="fas fa-users mr-1"></i> View Contributors
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="border-b pb-6 mb-6">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900">Mobile API Service</h3>
+                            <p class="text-gray-600 mt-1">RESTful API service for mobile applications with authentication</p>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-md text-sm">Manage</button>
+                            <button class="bg-gray-100 text-gray-700 px-3 py-1 rounded-md text-sm">Deploy</button>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
+                        <div>
+                            <h4 class="text-sm font-semibold text-gray-500 mb-2">PROGRESS</h4>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div class="bg-yellow-500 h-2.5 rounded-full" style="width: 42%"></div>
+                            </div>
+                            <div class="flex justify-between mt-1 text-xs text-gray-500">
+                                <span>Started: Mar 1, 2025</span>
+                                <span>Target: May 30, 2025</span>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 class="text-sm font-semibold text-gray-500 mb-2">CONTRIBUTORS</h4>
+                            <div class="flex items-center">
+                                <div class="flex -space-x-2 mr-3">
+                                    <div class="w-7 h-7 rounded-full bg-purple-300 flex items-center justify-center text-xs text-white">RS</div>
+                                    <div class="w-7 h-7 rounded-full bg-pink-300 flex items-center justify-center text-xs text-white">TU</div>
+                                    <div class="w-7 h-7 rounded-full bg-indigo-300 flex items-center justify-center text-xs text-white">+9</div>
+                                </div>
+                                <span class="text-sm text-gray-600">12 contributors</span>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 class="text-sm font-semibold text-gray-500 mb-2">INTEGRATION STATUS</h4>
+                            <div class="flex items-center space-x-2">
+                                <i class="fas fa-code-branch text-yellow-500"></i>
+                                <span class="text-sm text-gray-600">Last integration: 1 day ago</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex space-x-4">
+                        <button class="text-indigo-600 text-sm hover:text-indigo-800 flex items-center">
+                            <i class="fas fa-code-branch mr-1"></i> View Code
+                        </button>
+                        <button class="text-indigo-600 text-sm hover:text-indigo-800 flex items-center">
+                            <i class="fas fa-tasks mr-1"></i> View Tasks
+                        </button>
+                        <button class="text-indigo-600 text-sm hover:text-indigo-800 flex items-center">
+                            <i class="fas fa-users mr-1"></i> View Contributors
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900">Data Visualization Tool</h3>
+                            <p class="text-gray-600 mt-1">Interactive data visualization library with chart components</p>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-md text-sm">Manage</button>
+                            <button class="bg-gray-100 text-gray-700 px-3 py-1 rounded-md text-sm">Deploy</button>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
+                        <div>
+                            <h4 class="text-sm font-semibold text-gray-500 mb-2">PROGRESS</h4>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div class="bg-blue-500 h-2.5 rounded-full" style="width: 18%"></div>
+                            </div>
+                            <div class="flex justify-between mt-1 text-xs text-gray-500">
+                                <span>Started: Mar 10, 2025</span>
+                                <span>Target: Jun 15, 2025</span>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 class="text-sm font-semibold text-gray-500 mb-2">CONTRIBUTORS</h4>
+                            <div class="flex items-center">
+                                <div class="flex -space-x-2 mr-3">
+                                    <div class="w-7 h-7 rounded-full bg-green-300 flex items-center justify-center text-xs text-white">AB</div>
+                                    <div class="w-7 h-7 rounded-full bg-blue-300 flex items-center justify-center text-xs text-white">CD</div>
+                                    <div class="w-7 h-7 rounded-full bg-red-300 flex items-center justify-center text-xs text-white">+15</div>
+                                </div>
+                                <span class="text-sm text-gray-600">17 contributors</span>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 class="text-sm font-semibold text-gray-500 mb-2">INTEGRATION STATUS</h4>
+                            <div class="flex items-center space-x-2">
+                                <i class="fas fa-code-branch text-blue-500"></i>
+                                <span class="text-sm text-gray-600">Last integration: 5 hours ago</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex space-x-4">
+                        <button class="text-indigo-600 text-sm hover:text-indigo-800 flex items-center">
+                            <i class="fas fa-code-branch mr-1"></i> View Code
+                        </button>
+                        <button class="text-indigo-600 text-sm hover:text-indigo-800 flex items-center">
+                            <i class="fas fa-tasks mr-1"></i> View Tasks
+                        </button>
+                        <button class="text-indigo-600 text-sm hover:text-indigo-800 flex items-center">
+                            <i class="fas fa-users mr-1"></i> View Contributors
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- AI Integration Manager -->
+        <div class="bg-white rounded-lg shadow-sm p-6">
+            <h2 class="text-xl font-bold text-gray-900 mb-6">AI Code Integration Manager</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Pending Integrations -->
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Pending Integrations</h3>
+                    
+                    <div class="space-y-4">
+                        <!-- Integration Item 1 -->
+                        <div class="border rounded-lg p-4">
+                            <div class="flex justify-between items-start mb-2">
+                                <div>
+                                    <h4 class="font-semibold text-gray-900">Authentication Module</h4>
+                                    <p class="text-sm text-gray-600">Web App Framework</p>
+                                </div>
+                                <span class="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs rounded-full">5 contributions</span>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-3">
+                                AI has analyzed and merged 5 user contributions for the authentication module.
+                            </p>
+                            <div class="flex space-x-2">
+                                <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1 rounded-md text-sm">
+                                    Review & Approve
+                                </button>
+                                <button class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1 rounded-md text-sm">
+                                    View Details
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Integration Item 2 -->
+                        <div class="border rounded-lg p-4">
+                            <div class="flex justify-between items-start mb-2">
+                                <div>
+                                    <h4 class="font-semibold text-gray-900">API Endpoints</h4>
+                                    <p class="text-sm text-gray-600">Mobile API Service</p>
+                                </div>
+                                <span class="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs rounded-full">3 contributions</span>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-3">
+                                AI has analyzed and merged 3 user contributions for the API endpoints.
+                            </p>
+                            <div class="flex space-x-2">
+                                <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1 rounded-md text-sm">
+                                    Review & Approve
+                                </button>
+                                <button class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1 rounded-md text-sm">
+                                    View Details
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Recent Integrations -->
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Recent Integrations</h3>
+                    
+                    <div class="space-y-4">
+                        <!-- Integration Item 1 -->
+                        <div class="border rounded-lg p-4">
+                            <div class="flex justify-between items-start mb-2">
+                                <div>
+                                    <h4 class="font-semibold text-gray-900">Component Library</h4>
+                                    <p class="text-sm text-gray-600">Web App Framework</p>
+                                </div>
+                                <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">Approved</span>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-3">
+                                Integrated 8 user contributions with AI improvements.
+                            </p>
+                            <div class="flex space-x-2">
+                                <button class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1 rounded-md text-sm">
+                                    View Code
+                                </button>
+                                <button class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1 rounded-md text-sm">
+                                    View Contributors
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Integration Item 2 -->
+                        <div class="border rounded-lg p-4">
+                            <div class="flex justify-between items-start mb-2">
+                                <div>
+                                    <h4 class="font-semibold text-gray-900">Bar Chart Component</h4>
+                                    <p class="text-sm text-gray-600">Data Visualization Tool</p>
+                                </div>
+                                <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">Approved</span>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-3">
+                                Integrated 4 user contributions with AI improvements.
+                            </p>
+                            <div class="flex space-x-2">
+                                <button class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1 rounded-md text-sm">
+                                    View Code
+                                </button>
+                                <button class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1 rounded-md text-sm">
+                                    View Contributors
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- New Project Modal (hidden by default) -->
+    <div id="newProjectModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-white rounded-lg shadow-xl p-6 w-full max-w-lg">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold text-gray-900">Create New Project</h2>
+                <button id="closeModalBtn" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <form>
+                <div class="mb-4">
+                    <label for="projectName" class="block text-sm font-medium text-gray-700 mb-1">Project Name</label>
+                    <input type="text" id="projectName" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                </div>
+                
+                <div class="mb-4">
+                    <label for="projectDescription" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                    <textarea id="projectDescription" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-md"></textarea>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label for="startDate" class="block text-sm font-medium text-gray-700 mb-1">Start Date</label>
+                        <input type="date" id="startDate" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                    </div>
+                    
+                    <div>
+                        <label for="endDate" class="block text-sm font-medium text-gray-700 mb-1">Target Completion</label>
+                        <input type="date" id="endDate" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="projectType" class="block text-sm font-medium text-gray-700 mb-1">Project Type</label>
+                    <select id="projectType" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                        <option value="web">Web Application</option>
+                        <option value="mobile">Mobile Application</option>
+                        <option value="api">API Service</option>
+                        <option value="library">Library/Framework</option>
+                        <option value="data">Data Science Project</option>
+                    </select>
+                </div>
+                
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Skill Levels Needed</label>
+                    <div class="flex space-x-4">
+                        <label class="inline-flex items-center">
+                            <input type="checkbox" class="form-checkbox" checked>
+                            <span class="ml-2 text-sm text-gray-700">Beginner</span>
+                        </label>
+                        <label class="inline-flex items-center">
+                            <input type="checkbox" class="form-checkbox" checked>
+                            <span class="ml-2 text-sm text-gray-700">Intermediate</span>
+                        </label>
+                        <label class="inline-flex items-center">
+                            <input type="checkbox" class="form-checkbox" checked>
+                            <span class="ml-2 text-sm text-gray-700">Advanced</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="flex justify-end space-x-3">
+                    <button type="button" id="cancelBtn" class="px-4 py-2 border border-gray-300 rounded-md text-gray-700">
+                        Cancel
+                    </button>
+                    <button type="button" id="createBtn" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">
+                        Create Project
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Modal functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const createProjectBtn = document.getElementById('createProjectBtn');
+            const closeModalBtn = document.getElementById('closeModalBtn');
+            const cancelBtn = document.getElementById('cancelBtn');
+            const newProjectModal = document.getElementById('newProjectModal');
+            
+            createProjectBtn.addEventListener('click', function() {
+                newProjectModal.classList.remove('hidden');
+            });
+            
+            closeModalBtn.addEventListener('click', function() {
+                newProjectModal.classList.add('hidden');
+            });
+            
+            cancelBtn.addEventListener('click', function() {
+                newProjectModal.classList.add('hidden');
+            });
+            
+            // Create project button functionality would be implemented here
+            document.getElementById('createBtn').addEventListener('click', function() {
+                alert('Project creation would be implemented here');
+                newProjectModal.classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+</html>

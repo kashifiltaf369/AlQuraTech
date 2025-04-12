@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlQuraTech - Resume Builder</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- html2pdf.js for PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <!-- ATS Optimization Tips -->
+    <script>
+        const atsTips = {
+            keywords: [
+                "leadership", "management", "communication", "problem-solving", "analytical",
+                "strategic", "innovative", "collaborative", "results-driven", "detail-oriented",
+                "technical", "creative", "adaptable", "organized", "efficient"
+            ],
+            sections: [
+                "Professional Summary", "Core Competencies", "Technical Skills", "Work Experience",
+                "Education", "Certifications", "Projects", "Publications", "Languages"
+            ]
+        };
+    </script>
+    <style>
+        .resume-preview {
+            background: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .resume-preview:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .skill-badge {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+        }
+        
+        .skill-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+        }
+
+        .template-card {
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .template-card:hover {
+            border-color: #4f46e5;
+            transform: translateY(-2px);
+        }
+
+        .template-card.selected {
+            border-color: #4f46e5;
+            background-color: #f5f3ff;
+        }
+
+        .ats-tip {
+            background-color: #f0f9ff;
+            border-left: 4px solid #3b82f6;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 0.375rem;
+        }
+
+        @media print {
+            .no-print {
+                display: none;
+            }
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <!-- ATS Optimization Tips -->
+        <div class="bg-white rounded-lg shadow p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4">ATS Optimization Tips</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="ats-tip">
+                    <h3 class="font-semibold text-blue-600 mb-2">Keywords</h3>
+                    <p class="text-sm text-gray-600">Use industry-specific keywords in your resume to improve ATS matching.</p>
+                    <div class="mt-2 flex flex-wrap gap-2">
+                        ${atsTips.keywords.slice(0, 5).map(keyword => `
+                            <span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">${keyword}</span>
+                        `).join('')}
+                    </div>
+                </div>
+                <div class="ats-tip">
+                    <h3 class="font-semibold text-blue-600 mb-2">Formatting</h3>
+                    <p class="text-sm text-gray-600">Use standard section headings and avoid complex formatting.</p>
+                    <div class="mt-2 flex flex-wrap gap-2">
+                        ${atsTips.sections.slice(0, 5).map(section => `
+                            <span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">${section}</span>
+                        `).join('')}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Form Section -->
+            <div class="space-y-6">
+                <!-- Template Selection -->
+                <div class="bg-white rounded-lg shadow p-6">
+                    <h2 class="text-2xl font-bold mb-4">Choose Template</h2>
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="template-card p-4 rounded-lg cursor-pointer" onclick="changeTemplate('modern')">
+                            <div class="aspect-w-3 aspect-h-4 bg-gray-100 rounded mb-2"></div>
+                            <h3 class="text-center font-medium">Modern</h3>
+                        </div>
+                        <div class="template-card p-4 rounded-lg cursor-pointer" onclick="changeTemplate('classic')">
+                            <div class="aspect-w-3 aspect-h-4 bg-gray-100 rounded mb-2"></div>
+                            <h3 class="text-center font-medium">Classic</h3>
+                        </div>
+                        <div class="template-card p-4 rounded-lg cursor-pointer" onclick="changeTemplate('minimal')">
+                            <div class="aspect-w-3 aspect-h-4 bg-gray-100 rounded mb-2"></div>
+                            <h3 class="text-center font-medium">Minimal</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow p-6">
+                    <h2 class="text-2xl font-bold mb-4">Personal Information</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Full Name</label>
+                            <input type="text" id="fullName" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Email</label>
+                            <input type="email" id="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Phone</label>
+                            <input type="tel" id="phone" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Location</label>
+                            <input type="text" id="location" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow p-6">
+                    <h2 class="text-2xl font-bold mb-4">Professional Summary</h2>
+                    <textarea id="summary" rows="4" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"></textarea>
+                </div>
+
+                <div class="bg-white rounded-lg shadow p-6">
+                    <h2 class="text-2xl font-bold mb-4">Skills</h2>
+                    <div id="skillTags" class="flex flex-wrap gap-2 mb-4"></div>
+                    <div class="flex gap-2">
+                        <input type="text" id="skillInput" placeholder="Add a skill" class="flex-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                        <button onclick="addSkill()" class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow p-6">
+                    <h2 class="text-2xl font-bold mb-4">Experience</h2>
+                    <div id="experienceList" class="space-y-4"></div>
+                    <button onclick="addExperience()" class="mt-4 bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700">
+                        <i class="fas fa-plus mr-2"></i>Add Experience
+                    </button>
+                </div>
+
+                <div class="bg-white rounded-lg shadow p-6">
+                    <h2 class="text-2xl font-bold mb-4">Education</h2>
+                    <div id="educationList" class="space-y-4"></div>
+                    <button onclick="addEducation()" class="mt-4 bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700">
+                        <i class="fas fa-plus mr-2"></i>Add Education
+                    </button>
+                </div>
+            </div>
+
+            <!-- Preview Section -->
+            <div class="space-y-6">
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-2xl font-bold">Resume Preview</h2>
+                        <div class="space-x-2">
+                            <button onclick="exportResume()" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700">
+                                <i class="fas fa-download mr-2"></i>Export PDF
+                            </button>
+                            <button onclick="printResume()" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+                                <i class="fas fa-print mr-2"></i>Print
+                            </button>
+                        </div>
+                    </div>
+                    <div id="resumePreview" class="resume-preview p-8 rounded-lg">
+                        <!-- Resume content will be dynamically inserted here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Resume Builder State
+        let currentTemplate = 'modern';
+        let resumeData = {
+            personalInfo: {
+                fullName: '',
+                email: '',
+                phone: '',
+                location: ''
+            },
+            summary: '',
+            skills: [],
+            experience: [],
+            education: []
+        };
+
+        // Enhanced template styles with more professional options
+        const templates = {
+            modern: {
+                header: 'text-4xl font-bold text-gray-800 mb-4',
+                section: 'text-2xl font-semibold text-gray-700 mb-3',
+                text: 'text-gray-600',
+                accent: '#4f46e5',
+                layout: 'centered'
+            },
+            classic: {
+                header: 'text-3xl font-bold text-gray-900 mb-4',
+                section: 'text-xl font-semibold text-gray-800 mb-3',
+                text: 'text-gray-700',
+                accent: '#1a365d',
+                layout: 'left-aligned'
+            },
+            minimal: {
+                header: 'text-3xl font-light text-gray-800 mb-4',
+                section: 'text-lg font-medium text-gray-700 mb-3',
+                text: 'text-gray-600',
+                accent: '#4a5568',
+                layout: 'clean'
+            }
+        };
+
+        // Initialize the resume builder
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load saved data if available
+            const savedData = localStorage.getItem('resumeData');
+            if (savedData) {
+                resumeData = JSON.parse(savedData);
+                updateForm();
+            }
+
+            // Set up event listeners
+            setupEventListeners();
+            
+            // Initial preview update
+            updatePreview();
+        });
+
+        // Set up event listeners
+        function setupEventListeners() {
+            // Personal information
+            document.getElementById('fullName').addEventListener('input', updateResumeData);
+            document.getElementById('email').addEventListener('input', updateResumeData);
+            document.getElementById('phone').addEventListener('input', updateResumeData);
+            document.getElementById('location').addEventListener('input', updateResumeData);
+            
+            // Summary
+            document.getElementById('summary').addEventListener('input', updateResumeData);
+            
+            // Skills
+            document.getElementById('skillInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    addSkill();
+                }
+            });
+        }
+
+        // Update resume data
+        function updateResumeData(e) {
+            const field = e.target.id;
+            if (field in resumeData.personalInfo) {
+                resumeData.personalInfo[field] = e.target.value;
+            } else {
+                resumeData[field] = e.target.value;
+            }
+            saveResumeData();
+            updatePreview();
+        }
+
+        // Add a skill
+        function addSkill() {
+            const input = document.getElementById('skillInput');
+            const skill = input.value.trim();
+            
+            if (skill && !resumeData.skills.includes(skill)) {
+                resumeData.skills.push(skill);
+                saveResumeData();
+                updatePreview();
+                input.value = '';
+            }
+        }
+
+        // Remove a skill
+        function removeSkill(skill) {
+            resumeData.skills = resumeData.skills.filter(s => s !== skill);
+            saveResumeData();
+            updatePreview();
+        }
+
+        // Add experience
+        function addExperience() {
+            const experience = {
+                id: Date.now(),
+                company: '',
+                position: '',
+                startDate: '',
+                endDate: '',
+                description: ''
+            };
+            
+            resumeData.experience.push(experience);
+            saveResumeData();
+            updatePreview();
+        }
+
+        // Update experience
+        function updateExperience(id, field, value) {
+            const experience = resumeData.experience.find(e => e.id === id);
+            if (experience) {
+                experience[field] = value;
+                saveResumeData();
+                updatePreview();
+            }
+        }
+
+        // Remove experience
+        function removeExperience(id) {
+            resumeData.experience = resumeData.experience.filter(e => e.id !== id);
+            saveResumeData();
+            updatePreview();
+        }
+
+        // Add education
+        function addEducation() {
+            const education = {
+                id: Date.now(),
+                institution: '',
+                degree: '',
+                field: '',
+                startDate: '',
+                endDate: '',
+                description: ''
+            };
+            
+            resumeData.education.push(education);
+            saveResumeData();
+            updatePreview();
+        }
+
+        // Update education
+        function updateEducation(id, field, value) {
+            const education = resumeData.education.find(e => e.id === id);
+            if (education) {
+                education[field] = value;
+                saveResumeData();
+                updatePreview();
+            }
+        }
+
+        // Remove education
+        function removeEducation(id) {
+            resumeData.education = resumeData.education.filter(e => e.id !== id);
+            saveResumeData();
+            updatePreview();
+        }
+
+        // Enhanced preview update function with ATS optimization
+        function updatePreview() {
+            const preview = document.getElementById('resumePreview');
+            const style = templates[currentTemplate];
+            
+            // Add ATS-friendly section headings
+            const sections = {
+                summary: 'Professional Summary',
+                skills: 'Core Competencies',
+                experience: 'Professional Experience',
+                education: 'Education',
+                certifications: 'Certifications',
+                projects: 'Projects'
+            };
+            
+            preview.innerHTML = `
+                <div class="max-w-3xl mx-auto">
+                    <!-- Header -->
+                    <div class="text-center mb-8">
+                        <h1 class="${style.header}">${resumeData.personalInfo.fullName || 'Your Name'}</h1>
+                        <div class="flex justify-center space-x-4 text-sm ${style.text}">
+                            ${resumeData.personalInfo.email ? `<span>${resumeData.personalInfo.email}</span>` : ''}
+                            ${resumeData.personalInfo.phone ? `<span>${resumeData.personalInfo.phone}</span>` : ''}
+                            ${resumeData.personalInfo.location ? `<span>${resumeData.personalInfo.location}</span>` : ''}
+                        </div>
+                    </div>
+                    
+                    <!-- Summary -->
+                    ${resumeData.summary ? `
+                        <div class="mb-8">
+                            <h2 class="${style.section}">${sections.summary}</h2>
+                            <p class="${style.text}">${resumeData.summary}</p>
+                        </div>
+                    ` : ''}
+                    
+                    <!-- Skills -->
+                    ${resumeData.skills.length > 0 ? `
+                        <div class="mb-8">
+                            <h2 class="${style.section}">${sections.skills}</h2>
+                            <div class="flex flex-wrap gap-2">
+                                ${resumeData.skills.map(skill => `
+                                    <span class="px-3 py-1 bg-gray-100 rounded-full text-sm ${style.text}">${skill}</span>
+                                `).join('')}
+                            </div>
+                        </div>
+                    ` : ''}
+                    
+                    <!-- Experience -->
+                    ${resumeData.experience.length > 0 ? `
+                        <div class="mb-8">
+                            <h2 class="${style.section}">${sections.experience}</h2>
+                            ${resumeData.experience.map(exp => `
+                                <div class="mb-4">
+                                    <h3 class="font-semibold ${style.text}">${exp.position || 'Position'}</h3>
+                                    <p class="text-sm ${style.text}">${exp.company || 'Company'} | ${exp.startDate || 'Start'} - ${exp.endDate || 'Present'}</p>
+                                    ${exp.description ? `<p class="mt-2 ${style.text}">${exp.description}</p>` : ''}
+                                </div>
+                            `).join('')}
+                        </div>
+                    ` : ''}
+                    
+                    <!-- Education -->
+                    ${resumeData.education.length > 0 ? `
+                        <div class="mb-8">
+                            <h2 class="${style.section}">${sections.education}</h2>
+                            ${resumeData.education.map(edu => `
+                                <div class="mb-4">
+                                    <h3 class="font-semibold ${style.text}">${edu.degree || 'Degree'}</h3>
+                                    <p class="text-sm ${style.text}">${edu.institution || 'Institution'} | ${edu.startDate || 'Start'} - ${edu.endDate || 'Present'}</p>
+                                    ${edu.description ? `<p class="mt-2 ${style.text}">${edu.description}</p>` : ''}
+                                </div>
+                            `).join('')}
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+        }
+
+        // Save resume data to localStorage
+        function saveResumeData() {
+            localStorage.setItem('resumeData', JSON.stringify(resumeData));
+        }
+
+        // Export resume as PDF
+        function exportResume() {
+            const element = document.getElementById('resumePreview');
+            const opt = {
+                margin: 1,
+                filename: 'resume.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+            };
+
+            html2pdf().set(opt).from(element).save();
+        }
+
+        // Update form with saved data
+        function updateForm() {
+            // Personal information
+            document.getElementById('fullName').value = resumeData.personalInfo.fullName;
+            document.getElementById('email').value = resumeData.personalInfo.email;
+            document.getElementById('phone').value = resumeData.personalInfo.phone;
+            document.getElementById('location').value = resumeData.personalInfo.location;
+            
+            // Summary
+            document.getElementById('summary').value = resumeData.summary;
+            
+            // Skills
+            const skillTags = document.getElementById('skillTags');
+            skillTags.innerHTML = resumeData.skills.map(skill => `
+                <span class="skill-badge">
+                    ${skill}
+                    <button onclick="removeSkill('${skill}')" class="ml-2 text-white hover:text-gray-200">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </span>
+            `).join('');
+        }
+
+        // Print resume
+        function printResume() {
+            window.print();
+        }
+
+        // Enhanced template change function
+        function changeTemplate(template) {
+            currentTemplate = template;
+            updatePreview();
+            
+            // Update template selection UI
+            document.querySelectorAll('.template-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            event.currentTarget.classList.add('selected');
+        }
+    </script>
+</body>
+</html> 
